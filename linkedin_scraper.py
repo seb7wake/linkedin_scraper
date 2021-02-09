@@ -12,10 +12,8 @@ from selenium.common.exceptions import WebDriverException, NoSuchElementExceptio
 from dotenv import load_dotenv
 load_dotenv()
 db_session = app.db.session
-from helpers import create_csv, find_or_create
-from app import models
+from csv_functions import create_csv, find_or_create
 
-from bs4 import BeautifulSoup
 from flask_mail import Message
 
 from datetime import date
@@ -25,7 +23,6 @@ import datetime
 import io
 import os
 import re
-import requests
 import ssl
 import urllib.request as r
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -139,7 +136,6 @@ try:
             print(" url: ", lead['url']," name: ", lead['name'], " company: ", lead['company'], " numEmployees: ", lead['company_employees'])
             if lead['company_employees'] and (lead['company_employees'] == '11-50' or lead['company_employees'] == '2-10'):
                 leads.append(lead)
-                db_insert_lead(lead)
             else: 
                 print('not inserted')
         except Exception as e:
