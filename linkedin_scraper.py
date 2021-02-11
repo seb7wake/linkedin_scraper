@@ -11,8 +11,7 @@ from selenium.common.exceptions import WebDriverException, NoSuchElementExceptio
 
 from dotenv import load_dotenv
 load_dotenv()
-db_session = app.db.session
-from csv_functions import create_csv, find_or_create
+from csv import create_csv, find_or_create
 
 from flask_mail import Message
 
@@ -32,15 +31,6 @@ options = webdriver.ChromeOptions()
 options.add_argument("--headless")
 browser = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
 
-def db_insert_lead(lead):
-    new_lead = find_or_create(
-        db_session, models.PropertyManagerLead, 
-        url=lead['url'], company=lead['company'], 
-        name=lead['name'], company_employees=lead['company_employees'], 
-        inserted_at=lead['inserted_at']
-        )
-    return 'lead inserted'
-
 leads = []
 all_managers = []
 pm_data= [
@@ -59,8 +49,8 @@ browser.execute_script(
     "if(el.innerHTML.includes('Sign in')){el.click();}}}catch(e){}})()"
 )
 time.sleep(5)
-username = 'seb7wake@gmail.com'
-password = "seb77777"
+username = ''
+password = ''
 username_input = browser.find_element_by_id('username')
 username_input.send_keys(username)
 password_input = browser.find_element_by_id('password')
