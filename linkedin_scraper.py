@@ -132,6 +132,7 @@ try:
             print("Errored while on user profile - ", e)
 except Exception as e:
     print("Errored during PM search - ", e)
+browser.quit()
 print('LEADS:\n', leads)
 csv_pm_leads = create_csv(
     ['Name', 'Location', 'Url', 'Company', 'Company Employees','Inserted at'],
